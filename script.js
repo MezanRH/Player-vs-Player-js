@@ -15,6 +15,8 @@ let p1Score = 0;
 let p2Score = 0;
 let winingScore = 5;
 let gameOver = false;
+let turnPlayer = 'p1';
+
 
 playingToElm.textContent = winingScore
 
@@ -45,10 +47,16 @@ formElm.addEventListener('submit', (evt) => {
 
 p1BtnElm.addEventListener('click', (evt) => {
     // incress the count based on condition
-    if(!gameOver && p1Score < winingScore){
+    if(turnPlayer === 'p1' && !gameOver && p1Score < winingScore){
         p1Score++
         // update DOM
         p1ScoreElm.textContent = p1Score;
+        // Change the turn
+        turnPlayer = 'p2'
+        // Disable p1 Button
+        p1BtnElm.setAttribute('disabled', 'disabled');
+        p2BtnElm.removeAttribute('disabled');
+
     }
     if(p1Score === winingScore){
         gameOver = true
@@ -63,10 +71,15 @@ p1BtnElm.addEventListener('click', (evt) => {
 
 p2BtnElm.addEventListener('click', (evt) => {
     // incress the count based on condition
-    if(!gameOver && p2Score < winingScore){
+    if(turnPlayer === 'p2' && !gameOver && p2Score < winingScore){
         p2Score++
         // update DOM
         p2ScoreElm.textContent = p2Score
+        // Change the turn
+        turnPlayer = 'p1';
+        // Disable p1 Button
+        p2BtnElm.setAttribute('disabled', 'disabled');
+        p1BtnElm.removeAttribute('disabled');
     }
     if(p2Score === winingScore){
         gameOver = true
