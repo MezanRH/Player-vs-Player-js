@@ -8,6 +8,72 @@ const inputScoreElm = document.querySelector('#inputScore');
 const p1BtnElm = document.querySelector('#p1Btn');
 const p2BtnElm = document.querySelector('#p2Btn');
 const resetBtnElm = document.querySelector('#resetBtn');
+const formElm = document.querySelector('form');
 
+
+let p1Score = 0;
+let p2Score = 0;
+let winingScore = 5;
+let gameOver = false;
+
+playingToElm.textContent = winingScore
 
 // Input and updating Playing to score
+
+function validationInput(score) {
+    if(score < 1){
+        alert('Please provide a value more than 0');
+    }
+}
+
+
+formElm.addEventListener('submit', (evt) => {
+    evt.preventDefault()
+
+    // geting the input
+    const inputScore = inputScoreElm.value
+    //validation check
+    validationInput(inputScore)
+    // saving it into data layer
+    winingScore = inputScore
+    // showing the value on dom
+    playingToElm.textContent = inputScore
+    // reset the input
+    inputScoreElm.value = ""
+})
+
+
+p1BtnElm.addEventListener('click', (evt) => {
+    // incress the count based on condition
+    if(!gameOver && p1Score < winingScore){
+        p1Score++
+        // update DOM
+        p1ScoreElm.textContent = p1Score;
+    }
+    if(p1Score === winingScore){
+        gameOver = true
+        // disabale player1 and player2 Btn
+        p1BtnElm.setAttribute('disabled', 'disabled');
+        p2BtnElm.setAttribute('disabled', 'disabled');
+
+        // Show massage
+        alert('Player1 is winner');
+    }
+});
+
+p2BtnElm.addEventListener('click', (evt) => {
+    // incress the count based on condition
+    if(!gameOver && p2Score < winingScore){
+        p2Score++
+        // update DOM
+        p2ScoreElm.textContent = p2Score
+    }
+    if(p2Score === winingScore){
+        gameOver = true
+        // disabale player1 and player2 Btn
+        p1BtnElm.setAttribute('disabled', 'disabled');
+        p2BtnElm.setAttribute('disabled', 'disabled');
+        // Show massage
+        alert('Player2 is winner');
+    }
+})
