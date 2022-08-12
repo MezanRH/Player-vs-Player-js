@@ -38,13 +38,39 @@ formElm.addEventListener('submit', (evt) => {
     //validation check
     validationInput(inputScore)
     // saving it into data layer
-    winingScore = inputScore
+    winingScore = +inputScore
     // showing the value on dom
     playingToElm.textContent = inputScore
     // reset the input
     inputScoreElm.value = ""
 })
 
+
+function handleWinningState(){
+    if(p1Score === winingScore){
+        // gameOver = true
+        // // disabale player1 and player2 Btn
+        // p1BtnElm.setAttribute('disabled', 'disabled');
+        // p2BtnElm.setAttribute('disabled', 'disabled');
+
+        // Show massage
+        alert('Player1 is winner');
+    }
+    else if(p2Score === winingScore){
+            // gameOver = true
+            // // disabale player1 and player2 Btn
+            // p1BtnElm.setAttribute('disabled', 'disabled');
+            // p2BtnElm.setAttribute('disabled', 'disabled');
+            // Show massage
+            alert('Player2 is winner');
+        }
+        if(p1Score === winingScore || p2Score === winingScore){
+            gameOver = true
+            // disabale player1 and player2 Btn
+            p1BtnElm.setAttribute('disabled', 'disabled');
+            p2BtnElm.setAttribute('disabled', 'disabled');
+        }
+}
 
 p1BtnElm.addEventListener('click', (evt) => {
     // incress the count based on condition
@@ -59,15 +85,17 @@ p1BtnElm.addEventListener('click', (evt) => {
         p2BtnElm.removeAttribute('disabled');
 
     }
-    if(p1Score === winingScore){
-        gameOver = true
-        // disabale player1 and player2 Btn
-        p1BtnElm.setAttribute('disabled', 'disabled');
-        p2BtnElm.setAttribute('disabled', 'disabled');
 
-        // Show massage
-        alert('Player1 is winner');
-    }
+    handleWinningState()
+    // if(p1Score === winingScore){
+    //     gameOver = true
+    //     // disabale player1 and player2 Btn
+    //     p1BtnElm.setAttribute('disabled', 'disabled');
+    //     p2BtnElm.setAttribute('disabled', 'disabled');
+
+    //     // Show massage
+    //     alert('Player1 is winner');
+    // }
 });
 
 p2BtnElm.addEventListener('click', (evt) => {
@@ -82,12 +110,27 @@ p2BtnElm.addEventListener('click', (evt) => {
         p2BtnElm.setAttribute('disabled', 'disabled');
         p1BtnElm.removeAttribute('disabled');
     }
-    if(p2Score === winingScore){
-        gameOver = true
-        // disabale player1 and player2 Btn
-        p1BtnElm.setAttribute('disabled', 'disabled');
-        p2BtnElm.setAttribute('disabled', 'disabled');
-        // Show massage
-        alert('Player2 is winner');
-    }
+    handleWinningState()
+    // if(p2Score === winingScore){
+    //     gameOver = true
+    //     // disabale player1 and player2 Btn
+    //     p1BtnElm.setAttribute('disabled', 'disabled');
+    //     p2BtnElm.setAttribute('disabled', 'disabled');
+    //     // Show massage
+    //     alert('Player2 is winner');
+    // }
+})
+
+resetBtnElm.addEventListener('click', (evt) => {
+ p1Score = 0;
+ p2Score = 0;
+ winingScore = 5;
+ gameOver = false;
+ turnPlayer = 'p1';
+
+p1BtnElm.removeAttribute('disabled');
+p2BtnElm.removeAttribute('disabled');
+p1ScoreElm.textContent = p1Score;
+p2ScoreElm.textContent = p2Score;
+playingToElm.textContent = winingScore;
 })
