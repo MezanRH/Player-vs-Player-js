@@ -17,9 +17,10 @@ let winingScore = 5;
 let gameOver = false;
 let turnPlayer = 'p1';
 
-
+// playinto score into Dom
 playingToElm.textContent = winingScore
-
+// disable PlayerBtn based on turn
+turnPlayer === 'p1'? p2BtnElm.setAttribute('disabled', 'disabled') : p1BtnElm.setAttribute('disabled', 'disabled')
 // Input and updating Playing to score
 
 function validationInput(score) {
