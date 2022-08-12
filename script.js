@@ -30,22 +30,6 @@ function validationInput(score) {
 }
 
 
-formElm.addEventListener('submit', (evt) => {
-    evt.preventDefault()
-
-    // geting the input
-    const inputScore = inputScoreElm.value
-    //validation check
-    validationInput(inputScore)
-    // saving it into data layer
-    winingScore = +inputScore
-    // showing the value on dom
-    playingToElm.textContent = inputScore
-    // reset the input
-    inputScoreElm.value = ""
-})
-
-
 function handleWinningState(){
     if(p1Score === winingScore){
         // gameOver = true
@@ -57,20 +41,51 @@ function handleWinningState(){
         alert('Player1 is winner');
     }
     else if(p2Score === winingScore){
-            // gameOver = true
-            // // disabale player1 and player2 Btn
-            // p1BtnElm.setAttribute('disabled', 'disabled');
-            // p2BtnElm.setAttribute('disabled', 'disabled');
-            // Show massage
-            alert('Player2 is winner');
-        }
-        if(p1Score === winingScore || p2Score === winingScore){
-            gameOver = true
-            // disabale player1 and player2 Btn
-            p1BtnElm.setAttribute('disabled', 'disabled');
-            p2BtnElm.setAttribute('disabled', 'disabled');
-        }
+        // gameOver = true
+        // // disabale player1 and player2 Btn
+        // p1BtnElm.setAttribute('disabled', 'disabled');
+        // p2BtnElm.setAttribute('disabled', 'disabled');
+        // Show massage
+        alert('Player2 is winner');
+    }
+    if(p1Score === winingScore || p2Score === winingScore){
+        gameOver = true
+        // disabale player1 and player2 Btn
+        p1BtnElm.setAttribute('disabled', 'disabled');
+        p2BtnElm.setAttribute('disabled', 'disabled');
+    }
 }
+
+function resetValues(){
+ p1Score = 0;
+ p2Score = 0;
+ winingScore = 5;
+ gameOver = false;
+ turnPlayer = 'p1';
+
+ p1BtnElm.removeAttribute('disabled');
+ p2BtnElm.removeAttribute('disabled');
+ p1ScoreElm.textContent = p1Score;
+ p2ScoreElm.textContent = p2Score;
+ playingToElm.textContent = winingScore;
+}
+
+
+formElm.addEventListener('submit', (evt) => {
+    evt.preventDefault()
+    // reset previous state
+    resetValues()
+    // geting the input
+    const inputScore = inputScoreElm.value
+    //validation check
+    validationInput(inputScore)
+    // saving it into data layer
+    winingScore = +inputScore
+    // showing the value on dom
+    playingToElm.textContent = inputScore
+    // reset the input
+    inputScoreElm.value = ""
+})
 
 p1BtnElm.addEventListener('click', (evt) => {
     // incress the count based on condition
@@ -121,16 +136,4 @@ p2BtnElm.addEventListener('click', (evt) => {
     // }
 })
 
-resetBtnElm.addEventListener('click', (evt) => {
- p1Score = 0;
- p2Score = 0;
- winingScore = 5;
- gameOver = false;
- turnPlayer = 'p1';
-
-p1BtnElm.removeAttribute('disabled');
-p2BtnElm.removeAttribute('disabled');
-p1ScoreElm.textContent = p1Score;
-p2ScoreElm.textContent = p2Score;
-playingToElm.textContent = winingScore;
-})
+resetBtnElm.addEventListener('click', resetValues)
